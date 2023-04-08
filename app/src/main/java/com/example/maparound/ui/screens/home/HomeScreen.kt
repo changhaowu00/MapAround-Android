@@ -1,12 +1,20 @@
 package com.example.maparound.ui.screens.home
 
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.maparound.ui.screens.home.components.BottomBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(){
-    Text(text = "HELLO WORLD FROM HOME SCREEN")
+    Scaffold(
+        bottomBar = { BottomBar() }
+    ) {
+
+    }
 }
 
 @Preview
