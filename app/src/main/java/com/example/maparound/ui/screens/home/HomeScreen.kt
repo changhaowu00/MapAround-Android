@@ -19,6 +19,6 @@ fun HomeScreen(){
 
 @Preview
 @Composable
-fun Preview(){
+fun HomeScreenPreview(){
     HomeScreen()
 }

@@ -35,6 +35,6 @@ fun BottomBar(){
 
 @Preview
 @Composable
-fun Preview(){
+fun BottomBarPreview(){
     BottomBar()
 }
