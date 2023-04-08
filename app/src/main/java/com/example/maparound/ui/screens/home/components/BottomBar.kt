@@ -23,9 +23,8 @@ fun BottomBar(){
     NavigationBar {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
-                modifier = Modifier.weight(1f, false),
-                label = { Text(item) },
                 icon = { Icon(icons.get(index), contentDescription = item) },
+                label = { Text(item) },
                 selected = selectedItem == index,
                 onClick = { selectedItem = index }
             )

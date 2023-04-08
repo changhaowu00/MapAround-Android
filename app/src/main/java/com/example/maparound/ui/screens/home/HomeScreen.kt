@@ -6,11 +6,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.maparound.ui.screens.home.components.BottomBar
+import com.example.maparound.ui.screens.home.components.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(){
     Scaffold(
+        topBar = { TopBar()},
         bottomBar = { BottomBar() }
     ) {
 
