@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MapAround</string>
+    <string name="placeholder_search">Buscar</string>
 </resources>
