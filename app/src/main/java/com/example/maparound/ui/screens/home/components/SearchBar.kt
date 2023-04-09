@@ -27,7 +27,6 @@ fun SearchBar(
         value = "",
         onValueChange = {
         },
-        enabled = false,
         trailingIcon =  {
             Icon(
                 imageVector = Icons.Default.Search,

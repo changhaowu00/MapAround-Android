@@ -18,13 +18,6 @@ import com.example.maparound.R
 fun TopBar(){
     Column() {
         //Top Bar
-        var selectedItemTopBar by remember { mutableStateOf(0) }
-
-        /*Row(modifier = Modifier.fillMaxWidth().height(50.dp)) {
-
-            SearchBar(modifier = Modifier.height(40.dp))
-        }*/
-
         NavigationBar(modifier = Modifier.height(65.dp)) {
             SearchBar(
                 modifier = Modifier
