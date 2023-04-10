@@ -17,15 +17,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeListItem(){
-    Card(
-        onClick = { /* Do something */ },
-        modifier = Modifier.size(width = 180.dp, height = 100.dp),
-        shape = RoundedCornerShape(8.dp)
-    ) {
-        Box(Modifier.fillMaxSize()) {
-            Text("Clickable", Modifier.align(Alignment.Center))
-        }
-    }
+
 }
 
 @Preview
