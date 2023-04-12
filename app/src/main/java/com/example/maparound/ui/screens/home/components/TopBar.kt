@@ -1,14 +1,10 @@
 package com.example.maparound.ui.screens.home.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,7 +38,7 @@ fun TopBar(){
         val items = listOf("Scroll Visualization", "Map Visualization", "AR Visualization")
         val icons = listOf(
             R.drawable.ic_baseline_view_list_24,
-            R.drawable.ic_baseline_map_24,
+            R.drawable.map,
             R.drawable.ic_baseline_view_in_ar_24)
         NavigationBar(
             modifier = Modifier.height(40.dp),
