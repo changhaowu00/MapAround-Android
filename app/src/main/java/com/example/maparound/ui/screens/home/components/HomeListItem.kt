@@ -75,7 +75,8 @@ fun HomeListItem(place : Place){
                     text = place.title,
                     modifier = Modifier.padding(horizontal = 10.dp),
                     color = MaterialTheme.colorScheme.onSurface,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
                 )
 
                 if (place.price!=null){
@@ -91,7 +92,7 @@ fun HomeListItem(place : Place){
         Row(modifier = Modifier.height(30.dp).padding(vertical = 0.dp)) {
             Row(
                 modifier = Modifier
-                    .width(120.dp)
+                    .width(130.dp)
                     .align( Alignment.CenterVertically)
                     .padding(horizontal = 3.dp)
             ){
@@ -110,7 +111,7 @@ fun HomeListItem(place : Place){
                 }
 
                 Text(
-                    text = if(place.user_name.length>11) "${place.user_name.subSequence(0,10)}..."
+                    text = if(place.user_name.length>15) "${place.user_name.subSequence(0,12)}..."
                             else place.user_name,
                 )
             }
@@ -164,7 +165,7 @@ fun HomeListItemPreview(){
         id = "1",
         image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
         icon_url = "https://media.timeout.com/images/101415021/image.jpg",
-        user_name = "Paco Manolito",
+        user_name = "Paco Manolito de Leganes",
         title = "Bar de Manolo Leganés",
         tag = "Bar",
         distance = "24m",
