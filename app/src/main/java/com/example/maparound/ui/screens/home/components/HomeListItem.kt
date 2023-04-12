@@ -94,7 +94,7 @@ fun HomeListItem(place : Place){
                 modifier = Modifier
                     .width(130.dp)
                     .align( Alignment.CenterVertically)
-                    .padding(horizontal = 3.dp)
+                    .padding(start = 6.dp)
             ){
                 Box(
                     modifier = Modifier
@@ -113,6 +113,9 @@ fun HomeListItem(place : Place){
                 Text(
                     text = if(place.user_name.length>15) "${place.user_name.subSequence(0,12)}..."
                             else place.user_name,
+                    modifier = Modifier.width(110.dp).align(Alignment.CenterVertically),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
 
@@ -165,7 +168,7 @@ fun HomeListItemPreview(){
         id = "1",
         image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
         icon_url = "https://media.timeout.com/images/101415021/image.jpg",
-        user_name = "Paco Manolito de Leganes",
+        user_name = "Paco Manolito de Leganes y madrid centro",
         title = "Bar de Manolo Leganés",
         tag = "Bar",
         distance = "24m",
