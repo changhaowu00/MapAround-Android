@@ -10,6 +10,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.maparound.ui.navigation.Screen
 import com.example.maparound.ui.screens.home.components.BottomBar
 import com.example.maparound.ui.screens.home.components.HomeListItem
 import com.example.maparound.ui.screens.home.components.TopBar
@@ -17,12 +20,14 @@ import com.example.maparound.ui.screens.home.components.TopBar
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(
+    navController : NavHostController
+){
     Scaffold(
         topBar = { TopBar()},
         bottomBar = { BottomBar() }
     ) {
-        var places = PlaceMock.pleces
+        var places = PlaceMock.places
 
         LazyColumn(
             modifier = Modifier
@@ -39,6 +44,6 @@ fun HomeScreen(){
 @Preview
 @Composable
 fun HomeScreenPreview(){
-    HomeScreen()
+    HomeScreen(rememberNavController())
 }
 

@@ -5,6 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.maparound.ui.screens.home.HomeScreen
+import com.example.maparound.ui.screens.login.LoginScreen
+import com.example.maparound.ui.screens.register.RegisterScreen
 
 @Composable
 fun NavGraph(
@@ -14,10 +16,14 @@ fun NavGraph(
         navController = navHostController,
         startDestination = Screen.HomeScreen.route,
     ) {
-
         composable(route = Screen.HomeScreen.route) {
-            HomeScreen()
+            HomeScreen(navHostController)
         }
-
+        composable(route = Screen.LoginScreen.route){
+            LoginScreen(navHostController)
+        }
+        composable(route = Screen.RegisterScreen.route){
+            RegisterScreen(navHostController)
+        }
     }
 }

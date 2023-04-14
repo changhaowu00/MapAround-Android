@@ -1,4 +1,5 @@
-package com.example.maparound.ui.screens.login
+package com.example.maparound.ui.screens.register
+
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,12 +39,13 @@ import com.example.maparound.ui.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     navController : NavHostController
 ){
     Column(
         modifier = Modifier
-            .fillMaxSize().fillMaxWidth()
+            .fillMaxSize()
+            .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
@@ -57,11 +59,11 @@ fun LoginScreen(
                 .padding(top = 10.dp)
         )
 
-        //LOGIN TEXT
+        //REGISTER TEXT
         Text(
-            text = "Login" ,
+            text = "Registrar" ,
             modifier = Modifier
-                .padding(end = 266.dp, bottom = 20.dp),
+                .padding(end = 212.dp, bottom = 20.dp),
             fontWeight = FontWeight.Bold,
             fontSize = 35.sp
         )
@@ -82,7 +84,9 @@ fun LoginScreen(
             label = { Text("Email") },
             singleLine = true,
             placeholder = { Text("example@gmail.com") },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 3.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 3.dp),
         )
 
         //PASSWORD FIELD
@@ -105,7 +109,34 @@ fun LoginScreen(
                     Icon(imageVector = visibilityIcon, contentDescription = description)
                 }
             },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp,vertical = 3.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 3.dp),
+        )
+
+        //PASSWORD FIELD
+        var confirmPassword by rememberSaveable { mutableStateOf("") }
+        var confirmPasswordHidden by rememberSaveable { mutableStateOf(true) }
+        TextField(
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            singleLine = true,
+            label = { Text("Confirm password") },
+            visualTransformation =
+            if (confirmPasswordHidden) PasswordVisualTransformation() else VisualTransformation.None,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                IconButton(onClick = { confirmPasswordHidden = !confirmPasswordHidden }) {
+                    val visibilityIcon =
+                        if (confirmPasswordHidden) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                    // Please provide localized description for accessibility services
+                    val description = if (confirmPasswordHidden) "Show password" else "Hide password"
+                    Icon(imageVector = visibilityIcon, contentDescription = description)
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 3.dp),
         )
 
         //LOGIN BUTTON
@@ -113,28 +144,21 @@ fun LoginScreen(
             onClick = { /* Do something! */ },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp,vertical = 3.dp)
+                .padding(horizontal = 20.dp, vertical = 3.dp)
                 .height(50.dp)
             ,
             shape = RoundedCornerShape(2.dp)
         ) {
-            Text("Iniciar sesión")
+            Text("Crear Cuenta")
         }
         val bottomOptionFontSize = 16.sp
         Text(
-            text = "¿Se te ha olvidado la contraseña?",
-            color = MaterialTheme.colorScheme.primary,
-            fontWeight = FontWeight.Bold,
-            fontSize = bottomOptionFontSize,
-            modifier = Modifier.padding(end=110.dp, top = 20.dp)
-        )
-        Text(
-            text = "¿No tienes cuenta?",
+            text = "¿Ya tienes cuenta?",
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold,
             fontSize = bottomOptionFontSize,
             modifier = Modifier.padding(end=215.dp, top = 20.dp)
-                .clickable { navController.navigate(Screen.RegisterScreen.route) },
+                .clickable { navController.navigate(Screen.LoginScreen.route) }
         )
         Text(
             text = "Política de privacidad",
@@ -148,7 +172,7 @@ fun LoginScreen(
 
 @Preview
 @Composable
-fun LoginScreenPreview(){
-    LoginScreen(rememberNavController())
+fun RegisterScreenPreview(){
+    RegisterScreen(rememberNavController())
 }
 

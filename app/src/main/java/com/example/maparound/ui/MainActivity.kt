@@ -16,7 +16,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.maparound.ui.navigation.NavGraph
 import com.example.maparound.ui.navigation.Screen
 import com.example.maparound.ui.theme.MapAroundTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
