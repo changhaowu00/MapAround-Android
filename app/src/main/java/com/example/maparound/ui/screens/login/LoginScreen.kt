@@ -134,7 +134,7 @@ fun LoginScreen(){
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold,
             fontSize = bottomOptionFontSize,
-            modifier = Modifier.padding(end=195.dp, top = 21.dp)
+            modifier = Modifier.padding(end=195.dp, top = 20.dp)
         )
     }
 }
