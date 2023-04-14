@@ -2,6 +2,7 @@ package com.example.maparound.ui.screens.register
 
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,10 +33,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.maparound.ui.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun RegisterScreen(){
+fun RegisterScreen(
+    navController : NavHostController
+){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -152,6 +158,7 @@ fun RegisterScreen(){
             fontWeight = FontWeight.Bold,
             fontSize = bottomOptionFontSize,
             modifier = Modifier.padding(end=215.dp, top = 20.dp)
+                .clickable { navController.navigate(Screen.LoginScreen.route) }
         )
         Text(
             text = "Política de privacidad",
@@ -166,6 +173,6 @@ fun RegisterScreen(){
 @Preview
 @Composable
 fun RegisterScreenPreview(){
-    RegisterScreen()
+    RegisterScreen(rememberNavController())
 }
 
