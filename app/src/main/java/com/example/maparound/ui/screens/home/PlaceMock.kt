@@ -15,7 +15,7 @@ object PlaceMock {
             price = "123.0€"
         ),
         Place(
-            id = "1",
+            id = "2",
             image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
             icon_url = "https://media.timeout.com/images/101415021/image.jpg",
             user_name = "Paco Manolito de Leganes",
@@ -25,7 +25,7 @@ object PlaceMock {
             price = "123.0€"
         ),
         Place(
-            id = "1",
+            id = "3",
             image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
             icon_url = "https://media.timeout.com/images/101415021/image.jpg",
             user_name = "Paco Manolito de Leganes",
@@ -35,7 +35,7 @@ object PlaceMock {
             price = "123.0€"
         ),
         Place(
-            id = "1",
+            id = "4",
             image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
             icon_url = "https://media.timeout.com/images/101415021/image.jpg",
             user_name = "Paco Manolito de Leganes",
@@ -45,7 +45,7 @@ object PlaceMock {
             price = "123.0€"
         ),
         Place(
-            id = "1",
+            id = "5",
             image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
             icon_url = "https://media.timeout.com/images/101415021/image.jpg",
             user_name = "Paco Manolito de Leganes",
@@ -55,7 +55,7 @@ object PlaceMock {
             price = "123.0€"
         ),
         Place(
-            id = "1",
+            id = "6",
             image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
             icon_url = "https://media.timeout.com/images/101415021/image.jpg",
             user_name = "Paco Manolito de Leganes",
@@ -65,7 +65,7 @@ object PlaceMock {
             price = "123.0€"
         ),
         Place(
-            id = "1",
+            id = "7",
             image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
             icon_url = "https://media.timeout.com/images/101415021/image.jpg",
             user_name = "Paco Manolito de Leganes",
