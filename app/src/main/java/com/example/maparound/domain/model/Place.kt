@@ -8,5 +8,7 @@ data class Place(
     val title: String,
     val tag: String,
     val distance: String,
-    val price: String?
+    val price: String? = null,
+    val date_time: String? = null,
+    val publish_time: String? = null,
 )

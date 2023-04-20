@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -21,6 +22,11 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        //Local properties for maps API Key
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]
     }
 
     buildTypes {
@@ -60,8 +66,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
-    //Coil
+    //Coil for image loading
     implementation "io.coil-kt:coil-compose:2.0.0-rc01"
+
+    //Google Maps
+    implementation 'com.google.maps.android:maps-compose:2.11.0'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
     // Compose dependencies
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
@@ -79,8 +89,6 @@ dependencies {
     //implementation 'androidx.compose.material3:material3:1.0.0-alpha02'
     implementation "androidx.compose.material3:material3:1.0.1"
     implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
-    
-
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1'
@@ -102,5 +110,4 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
-
 }

@@ -25,7 +25,8 @@ fun HomeListItem(place : Place){
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(3.dp)
+            .padding(3.dp),
+        shape = RoundedCornerShape(1.dp)
     ){
 
         Row(
@@ -35,7 +36,7 @@ fun HomeListItem(place : Place){
             Box(
                 modifier = Modifier
                     .size(100.dp)
-                    .clip(RoundedCornerShape(10.dp))
+                    .clip(RoundedCornerShape(2.dp))
                     .background(MaterialTheme.colorScheme.tertiary)
                     //.padding(1.dp)
             ){
@@ -78,13 +79,19 @@ fun HomeListItem(place : Place){
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp
                 )
-
+                if (place.date_time!=null){
+                    Text(
+                        text = place.date_time,
+                        modifier = Modifier.padding(horizontal = 10.dp),
+                        color = MaterialTheme.colorScheme.secondary)
+                }
                 if (place.price!=null){
                     Text(
                         text = place.price,
                         modifier = Modifier.padding(horizontal = 10.dp),
-                        MaterialTheme.colorScheme.secondary)
+                        color = MaterialTheme.colorScheme.secondary)
                 }
+
 
             }
         }
@@ -92,14 +99,14 @@ fun HomeListItem(place : Place){
         Row(modifier = Modifier.height(30.dp).padding(vertical = 0.dp)) {
             Row(
                 modifier = Modifier
-                    .width(130.dp)
+                    //.width(130.dp)
                     .align( Alignment.CenterVertically)
-                    .padding(start = 6.dp)
+                    .padding(start = 5.dp)
             ){
                 Box(
                     modifier = Modifier
-                        .size(19.dp)
-                        .clip(RoundedCornerShape(10.dp))
+                        .size(21.dp)
+                        .clip(RoundedCornerShape(100.dp))
                         .background(Color.Gray)
                         .align( Alignment.CenterVertically)
                 ){
@@ -113,7 +120,10 @@ fun HomeListItem(place : Place){
                 Text(
                     text = if(place.user_name.length>15) "${place.user_name.subSequence(0,12)}..."
                             else place.user_name,
-                    modifier = Modifier.width(110.dp).align(Alignment.CenterVertically),
+                    modifier = Modifier
+                        .width(110.dp)
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 5.dp),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -155,25 +165,17 @@ fun HomeListItem(place : Place){
 @Composable
 fun HomeListItemPreview(){
     val place1 = Place(
-        id = "1",
-        image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
-        icon_url = "https://media.timeout.com/images/101415021/image.jpg",
-        user_name = "Paco",
-        title = "Bar de Manolo Leganés",
-        tag = "Bar",
-        distance = "24m",
-        price = null
-    )
-    val place2 = Place(
-        id = "1",
-        image_url = "https://cultibar.files.wordpress.com/2015/09/el-manolo-estc3a9tica-actual-esencia-eterna.jpg",
-        icon_url = "https://media.timeout.com/images/101415021/image.jpg",
-        user_name = "Paco Manolito de Leganes y madrid centro",
-        title = "Bar de Manolo Leganés",
-        tag = "Bar",
-        distance = "24m",
-        price = "123.0€"
+        id = "0",
+        image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m_mapAround.jpg",
+        icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m.png",
+        user_name = "UC3M",
+        title = "Defensa TFG Map Around",
+        tag = "Evento",
+        distance = "1m",
+        price = "Gratis",
+        date_time = "12/04/23, 12:00",
+        publish_time = "23d"
     )
 
-    HomeListItem(place2)
+    HomeListItem(place1)
 }
