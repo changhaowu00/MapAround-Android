@@ -24,8 +24,8 @@ fun HomeScreen(
     navController : NavHostController
 ){
     Scaffold(
-        topBar = { TopBar()},
-        bottomBar = { BottomBar() }
+        topBar = { TopBar(navController)},
+        bottomBar = { BottomBar(navController) }
     ) {
         var places = PlaceMock.places
 

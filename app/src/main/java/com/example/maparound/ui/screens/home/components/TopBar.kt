@@ -8,12 +8,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.maparound.R
+import com.example.maparound.ui.navigation.Screen
 
 @Composable
-fun TopBar(){
+fun TopBar(
+    navController : NavHostController
+){
     Column() {
-        //Top Bar
+        //Upper Bar
         NavigationBar(modifier = Modifier.height(65.dp)) {
             SearchBar(
                 modifier = Modifier
@@ -33,7 +38,7 @@ fun TopBar(){
         //Divider
         Divider()
 
-        //Bottom Bar
+        //Down Bar
         var selectedItemBottomBar by remember { mutableStateOf(0) }
         val items = listOf("Scroll Visualization", "Map Visualization", "AR Visualization")
         val icons = listOf(
@@ -49,7 +54,17 @@ fun TopBar(){
                         painter = painterResource(icons.get(index)),
                         contentDescription = item) },
                     selected = selectedItemBottomBar == index,
-                    onClick = { selectedItemBottomBar = index }
+                    onClick = {
+                        selectedItemBottomBar = index
+                        if(item == "Scroll Visualization"){
+                            navController.navigate(Screen.HomeScreen.route)
+                        }else if(item == "Map Visualization"){
+                            navController.navigate(Screen.MapScreen.route)
+                        }else if(item == "AR Visualization"){
+                            navController.navigate(Screen.ArScreen.route)
+                        }
+
+                    }
                 )
             }
         }
@@ -60,6 +75,6 @@ fun TopBar(){
 @Preview
 @Composable
 fun TopBarPreview(){
-    TopBar()
+    TopBar(rememberNavController())
 }
 
