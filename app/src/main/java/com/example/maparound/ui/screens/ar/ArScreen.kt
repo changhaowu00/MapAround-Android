@@ -11,12 +11,14 @@ import io.github.sceneview.ar.ARScene
 import io.github.sceneview.ar.node.ArNode
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.platform.LocalContext
+import io.github.sceneview.ar.ArSceneView
 import io.github.sceneview.ar.node.ArModelNode
 import io.github.sceneview.ar.node.PlacementMode
 import io.github.sceneview.math.Position
 
 @Composable
 fun ArScreen(){
+    lateinit var sceneView: ArSceneView
     val nodes = remember { mutableStateListOf<ArNode>() }
     val context = LocalContext.current
 
@@ -59,7 +61,7 @@ fun ArScreen(){
         ),
     )
 
-    """
+
     val model = ArModelNode(
         placementMode = PlacementMode.BEST_AVAILABLE,
         instantAnchor = false,
@@ -68,13 +70,15 @@ fun ArScreen(){
     ).apply {
         loadModelGlbAsync(
             context = context,
-            glbFileLocation = "models/{monster?.monsterModel}",
+            glbFileLocation = "https://storage.googleapis.com/ar-answers-in-search-models/static/GiantPanda/model.glb",
             autoAnimate = true,
-            centerOrigin = Position(x = 0.0f, y = -1.0f, z = 0.0f),
+            scaleToUnits = 1.0f,
+            // Place the model origin at the bottom center
+            centerOrigin = Position(y = -1.0f)
         )
     }
     
-    """
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         ARScene(
@@ -83,6 +87,7 @@ fun ArScreen(){
             planeRenderer = true,
             onCreate = { arSceneView ->
                 // Apply your configuration
+                sceneView = arSceneView
             },
             onSessionCreate = { session ->
                 // Configure the ARCore session
@@ -92,6 +97,8 @@ fun ArScreen(){
             },
             onTap = { hitResult ->
                 // User tapped in the AR view
+                sceneView.addChild(model)
+                model.anchor()
             }
         )
     }
