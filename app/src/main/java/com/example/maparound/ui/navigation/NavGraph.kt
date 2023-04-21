@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.maparound.ui.screens.ar.ArScreen
 import com.example.maparound.ui.screens.home.HomeScreen
 import com.example.maparound.ui.screens.login.LoginScreen
 import com.example.maparound.ui.screens.map.MapScreen
@@ -15,8 +16,9 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.HomeScreen.route,
+        //startDestination = Screen.HomeScreen.route,
         //startDestination = Screen.MapScreen.route,
+        startDestination = Screen.ArScreen.route
     ) {
         composable(route = Screen.HomeScreen.route) {
             HomeScreen(navHostController)
@@ -29,6 +31,9 @@ fun NavGraph(
         }
         composable(route = Screen.MapScreen.route){
             MapScreen()
+        }
+        composable(route = Screen.ArScreen.route){
+            ArScreen()
         }
     }
 }
