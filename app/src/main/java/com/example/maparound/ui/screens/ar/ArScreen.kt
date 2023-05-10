@@ -15,6 +15,7 @@ import io.github.sceneview.ar.ArSceneView
 import io.github.sceneview.ar.node.ArModelNode
 import io.github.sceneview.ar.node.PlacementMode
 import io.github.sceneview.math.Position
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun ArScreen(){
@@ -61,8 +62,58 @@ fun ArScreen(){
         ),
     )
 
+    var index = 1
+    var firstTap = true
 
-    val model = ArModelNode(
+    val model1 = ArModelNode(
+        placementMode = PlacementMode.BEST_AVAILABLE,
+        instantAnchor = false,
+        hitPosition = Position(0.0f, 0.0f, -2.0f),
+        followHitPosition = true,
+    ).apply {
+        loadModelGlbAsync(
+            context = context,
+            glbFileLocation = "https://github.com/changhaowu00/ArModels/raw/main/glass.glb",
+            autoAnimate = true,
+            scaleToUnits = 1f,
+            // Place the model origin at the bottom center
+            centerOrigin = Position(y = -1.0f)
+        )
+    }
+
+    val model2 = ArModelNode(
+        placementMode = PlacementMode.BEST_AVAILABLE,
+        instantAnchor = false,
+        hitPosition = Position(0.0f, 0.0f, -2.0f),
+        followHitPosition = true,
+    ).apply {
+        loadModelGlbAsync(
+            context = context,
+            glbFileLocation = "https://github.com/changhaowu00/ArModels/raw/20d0dee32e5436d28954732a4621f53fe845eae7/c3m.glb",
+            autoAnimate = true,
+            scaleToUnits = 1f,
+            // Place the model origin at the bottom center
+            centerOrigin = Position(y = -1.0f)
+        )
+    }
+
+    val model3 = ArModelNode(
+        placementMode = PlacementMode.BEST_AVAILABLE,
+        instantAnchor = false,
+        hitPosition = Position(0.0f, 0.0f, -2.0f),
+        followHitPosition = true,
+    ).apply {
+        loadModelGlbAsync(
+            context = context,
+            glbFileLocation = "https://storage.googleapis.com/ar-answers-in-search-models/static/GiantPanda/model.glb",
+            autoAnimate = true,
+            scaleToUnits = 1.5f,
+            // Place the model origin at the bottom center
+            centerOrigin = Position(y = -1.0f)
+        )
+    }
+
+    val model4 = ArModelNode(
         placementMode = PlacementMode.BEST_AVAILABLE,
         instantAnchor = false,
         hitPosition = Position(0.0f, 0.0f, -2.0f),
@@ -77,7 +128,39 @@ fun ArScreen(){
             centerOrigin = Position(y = -1.0f)
         )
     }
-    
+
+    val model5 = ArModelNode(
+        placementMode = PlacementMode.BEST_AVAILABLE,
+        instantAnchor = false,
+        hitPosition = Position(0.0f, 0.0f, -2.0f),
+        followHitPosition = true,
+    ).apply {
+        loadModelGlbAsync(
+            context = context,
+            glbFileLocation = "https://storage.googleapis.com/ar-answers-in-search-models/static/GiantPanda/model.glb",
+            autoAnimate = true,
+            scaleToUnits = 0.6f,
+            // Place the model origin at the bottom center
+            centerOrigin = Position(y = -1.0f)
+        )
+    }
+
+    val model6 = ArModelNode(
+        placementMode = PlacementMode.BEST_AVAILABLE,
+        instantAnchor = false,
+        hitPosition = Position(0.0f, 0.0f, -2.0f),
+        followHitPosition = true,
+    ).apply {
+        loadModelGlbAsync(
+            context = context,
+            glbFileLocation = "https://storage.googleapis.com/ar-answers-in-search-models/static/Tiger/model.glb",
+            autoAnimate = true,
+            scaleToUnits = 2.5f,
+            // Place the model origin at the bottom center
+            centerOrigin = Position(y = -1.0f)
+        )
+    }
+
 
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -88,6 +171,8 @@ fun ArScreen(){
             onCreate = { arSceneView ->
                 // Apply your configuration
                 sceneView = arSceneView
+
+
             },
             onSessionCreate = { session ->
                 // Configure the ARCore session
@@ -97,8 +182,77 @@ fun ArScreen(){
             },
             onTap = { hitResult ->
                 // User tapped in the AR view
+                /*
                 sceneView.addChild(model)
-                model.anchor()
+                model.playAnimation(2)
+                model.playAnimation(1)
+                model.playAnimation(0)
+                model.anchor()*/
+                if (firstTap && index == 1){
+                    sceneView.addChild(model1)
+                    firstTap = false
+                }
+                else if (firstTap==false && index == 1){
+                    model1.anchor()
+                    firstTap = true
+                    index++
+                }
+                else if (firstTap && index == 2){
+                    sceneView.addChild(model2)
+                    model2.playAnimation(2)
+                    model2.playAnimation(1)
+                    model2.playAnimation(0)
+                    firstTap = false
+                }
+                else if (firstTap==false && index == 2){
+                    model2.anchor()
+                    firstTap = true
+                    index++
+                }
+                else{
+                    sceneView.planeRenderer.isVisible = false
+                }
+                """
+                else if (firstTap && index == 3){
+                    sceneView.addChild(model3)
+                    firstTap = false
+                }
+                else if (firstTap==false && index == 3){
+                    model3.anchor()
+                    firstTap = true
+                    index++
+                }
+                else if (firstTap && index == 4){
+                    sceneView.addChild(model4)
+                    firstTap = false
+                }
+                else if (firstTap==false && index == 4){
+                    model4.anchor()
+                    firstTap = true
+                    index++
+                }
+                else if (firstTap && index == 5){
+                    sceneView.addChild(model5)
+                    firstTap = false
+                }
+                else if (firstTap==false && index == 5){
+                    model5.anchor()
+                    firstTap = true
+                    index++
+                }
+                else if (firstTap && index == 6){
+                    sceneView.addChild(model6)
+                    firstTap = false
+                }
+                else if (firstTap==false && index == 6){
+                    model6.anchor()
+                    firstTap = true
+                    index++
+                }"""
+
+                //model2.setCastShadows(false)
+                //model2.setReceiveShadows(false)
+                //model2.setScreenSpaceContactShadows(false)
             }
         )
     }
