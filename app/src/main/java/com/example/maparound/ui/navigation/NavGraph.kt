@@ -12,11 +12,12 @@ import com.example.maparound.ui.screens.register.RegisterScreen
 
 @Composable
 fun NavGraph(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    startDestination: String = Screen.HomeScreen.route
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.HomeScreen.route,
+        startDestination = startDestination,
         //startDestination = Screen.MapScreen.route,
         //startDestination = Screen.ArScreen.route
     ) {

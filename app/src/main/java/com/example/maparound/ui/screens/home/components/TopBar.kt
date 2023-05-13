@@ -8,14 +8,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.maparound.R
 import com.example.maparound.ui.navigation.Screen
+import com.example.maparound.ui.screens.home.HomeScreenViewModel
 
 @Composable
 fun TopBar(
-    navController : NavHostController
+    navController : NavHostController,
+    viewModel: HomeScreenViewModel = hiltViewModel()
 ){
     Column() {
         //Upper Bar
@@ -39,7 +42,7 @@ fun TopBar(
         Divider()
 
         //Down Bar
-        var selectedItemBottomBar by remember { mutableStateOf(0) }
+        //var selectedItemBottomBar by remember { mutableStateOf(0) }
         val items = listOf("Scroll Visualization", "Map Visualization", "AR Visualization")
         val icons = listOf(
             R.drawable.ic_baseline_view_list_24,
@@ -53,15 +56,16 @@ fun TopBar(
                     icon = { Icon(
                         painter = painterResource(icons.get(index)),
                         contentDescription = item) },
-                    selected = selectedItemBottomBar == index,
+                    selected = viewModel.selectedItemBottomBar.value == index,
                     onClick = {
-                        selectedItemBottomBar = index
+                        //selectedItemBottomBar = index
+                        viewModel.selectedItemBottomBar.value = index
                         if(item == "Scroll Visualization"){
-                            navController.navigate(Screen.HomeScreen.route)
+                            //navController.navigate(Screen.HomeScreen.route)
                         }else if(item == "Map Visualization"){
-                            navController.navigate(Screen.MapScreen.route)
+                            //navController.navigate(Screen.MapScreen.route)
                         }else if(item == "AR Visualization"){
-                            navController.navigate(Screen.ArScreen.route)
+                            //navController.navigate(Screen.ArScreen.route)
                         }
 
                     }
