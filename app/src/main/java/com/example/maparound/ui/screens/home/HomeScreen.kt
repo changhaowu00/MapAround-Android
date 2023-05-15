@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -21,14 +22,22 @@ import com.example.maparound.ui.screens.home.components.BottomBar
 import com.example.maparound.ui.screens.home.components.HomeListItem
 import com.example.maparound.ui.screens.home.components.TopBar
 import com.example.maparound.ui.screens.map.MapScreen
+import com.example.maparound.ui.screens.map.MapScreenViewModel
+import com.google.android.gms.location.LocationServices
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController : NavHostController,
-    viewModel: HomeScreenViewModel = hiltViewModel()
+    viewModel: HomeScreenViewModel = hiltViewModel(),
+    mapViewModel: MapScreenViewModel = hiltViewModel()
+
 ){
+    val context = LocalContext.current
+    val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
+    mapViewModel.getDeviceLocationAsinc(fusedLocationProviderClient)
+
     Scaffold(
         topBar = { TopBar(navController)},
         bottomBar = { BottomBar(navController) }

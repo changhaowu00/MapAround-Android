@@ -10,8 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeScreenViewModel@Inject constructor(
-) :ViewModel(){
+class HomeScreenViewModel@Inject constructor( ) :ViewModel(){
     var selectedItemBottomBar = mutableStateOf(0)
 
     fun setSelectedItemBottomBar(value:Int){
