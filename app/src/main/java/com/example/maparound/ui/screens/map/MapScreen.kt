@@ -2,42 +2,46 @@ package com.example.maparound.ui.screens.map
 
 import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.IntentSender
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.location.Location
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Card
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.maparound.R
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.maps.android.compose.*
-import android.content.IntentSender
-import android.util.Log
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import com.example.maparound.domain.model.Place
+import com.example.maparound.ui.screens.home.components.HomeListItem
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.coroutineScope
+import com.google.maps.android.compose.*
 import kotlinx.coroutines.launch
-import kotlin.coroutines.coroutineContext
+
+
 
 @Composable
 fun MapScreen(
@@ -143,14 +147,38 @@ fun MapScreen(
 
         Marker(
             state = MarkerState(position = viewModel.state.value.currentLocation),
+            alpha = 1.0f,
             title = "Singapore",
             snippet = "Marker in Singapore",
-            icon = Icons.Filled.Home,
-
+            icon = getBitmapDescriptor(context,R.drawable.map,R.color.purple_200),
+            onClick = {false },
         )
-
-
     }
+
+    val place1 = Place(
+        id = "0",
+        image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m_mapAround.jpg",
+        icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m.png",
+        user_name = "UC3M",
+        title = "Defensa TFG Map Around",
+        tag = "Evento",
+        distance = "1m",
+        price = "Gratis",
+        date_time = "12/04/23, 12:00",
+        publish_time = "23d"
+    )
+    Box(modifier = Modifier.padding(top = 300.dp)){
+        HomeListItem(place = place1)
+    }
+
+
+
+
+
+}
+
+fun getBitmapDescriptor(context: Context,id: Int,color: Int): BitmapDescriptor {
+    return BitmapHelper.vectorToBitmap(context, id, ContextCompat.getColor(context, color))
 }
 
 /**
@@ -162,14 +190,6 @@ suspend fun CameraPositionState.centerOnLocation(
     update = CameraUpdateFactory.newLatLngZoom(
         LatLng(location.latitude, location.longitude), 16f),
 )
-
-/**
- * Center to my location
- */
-fun centerToMyLocation(){
-
-}
-
 
 
 /**
@@ -212,8 +232,42 @@ fun checkLocationSetting(
 }
 
 
+
 @Preview
 @Composable
 fun MapScreenPreview(){
     MapScreen()
 }
+object BitmapHelper {
+    /**
+     * Demonstrates converting a [Drawable] to a [BitmapDescriptor],
+     * for use as a marker icon. Taken from ApiDemos on GitHub:
+     * https://github.com/googlemaps/android-samples/blob/main/ApiDemos/kotlin/app/src/main/java/com/example/kotlindemos/MarkerDemoActivity.kt
+     */
+    fun vectorToBitmap(
+        context: Context,
+        @DrawableRes id: Int,
+        @ColorInt color: Int
+    ): BitmapDescriptor {
+        val vectorDrawable = ResourcesCompat.getDrawable(context.resources, id, null)
+        if (vectorDrawable == null) {
+            Log.e("BitmapHelper", "Resource not found")
+            return BitmapDescriptorFactory.defaultMarker()
+        }
+        val bitmap = Bitmap.createBitmap(
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
+        DrawableCompat.setTint(vectorDrawable, color)
+        vectorDrawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+}
+
+
+
+
+
