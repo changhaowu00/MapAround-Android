@@ -4,8 +4,6 @@ Android application that allows you to discover your surroundings:
 
 ![WhatsApp Image 2023-05-21 at 19 09 21](https://github.com/changhaowu00/MapAround-Android/assets/67517715/091c9c93-b5c4-4e68-9bc2-2c56434f158b)
 
-![WhatsApp Image 2023-05-21 at 19 09 40](https://github.com/changhaowu00/MapAround-Android/assets/67517715/59edca01-f4ba-4df4-95f8-a6a435666033)
-
 ![ar1](https://github.com/changhaowu00/MapAround-Android/assets/67517715/8102206a-b067-46b5-a8b9-714bafeadb27)
 
 ![ar2](https://github.com/changhaowu00/MapAround-Android/assets/67517715/5f57ebfa-c969-45bf-a3c8-eb4afb30297f)
