@@ -1,6 +1,8 @@
 package com.example.maparound.ui.screens.home
 
+import com.example.maparound.R
 import com.example.maparound.domain.model.Place
+import com.google.android.gms.maps.model.LatLng
 
 object PlaceMock {
     var places = listOf<Place>(
@@ -14,7 +16,8 @@ object PlaceMock {
             distance = "1m",
             price = "Gratis",
             date_time = "12/04/23, 12:00",
-            publish_time = "23d"
+            publish_time = "23d",
+            marker = R.drawable.event
         ),
         Place(
             id = "1",
@@ -26,7 +29,8 @@ object PlaceMock {
             distance = "12m",
             price = "Solo Estudiantes",
             date_time = "12/04/23, 13:00",
-            publish_time = "26d"
+            publish_time = "26d",
+            marker = R.drawable.event
         ),
         Place(
             id = "2",
@@ -37,7 +41,8 @@ object PlaceMock {
             tag = "Supermercado",
             distance = "25m",
             price = null,
-            date_time = "8:00-21:00"
+            date_time = "8:00-21:00",
+            marker = R.drawable.store
         ),
         Place(
             id = "3",
@@ -49,7 +54,8 @@ object PlaceMock {
             distance = "27m",
             price = "Gratis",
             date_time = "12/04/23, 13:00",
-            publish_time = "14h"
+            publish_time = "14h",
+            marker = R.drawable.basketball
         ),
         Place(
             id = "4",
@@ -61,7 +67,8 @@ object PlaceMock {
             distance = "29m",
             price = "2€/Entrada",
             date_time = "12/04/23, 13:00",
-            publish_time = "2d"
+            publish_time = "2d",
+            marker = R.drawable.event
         ),
         Place(
             id = "5",
@@ -72,7 +79,8 @@ object PlaceMock {
             tag = "Bar",
             distance = "31m",
             price = null,
-            date_time = "8:00-21:00"
+            date_time = "8:00-21:00",
+            marker = R.drawable.bar
         ),
         Place(
             id = "6",
@@ -83,7 +91,18 @@ object PlaceMock {
             tag = "Momento",
             distance = "33m",
             price = null,
-            publish_time = "12m"
+            publish_time = "12m",
+            marker = R.drawable.event
         ),
+    )
+    var loc = listOf<LatLng>(
+        LatLng(0.0001877,-0.0001877),
+        LatLng(-0.0025877,0.0021877),
+        LatLng(-0.0011877,0.0012877),
+        LatLng(-0.0022877,-0.0032877),
+        LatLng(0.0023877,-0.0012877),
+        LatLng(-0.0003377,0.0032177),
+        LatLng(-0.0042377,-0.0212177),
+
     )
 }
