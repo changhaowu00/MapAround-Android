@@ -14,14 +14,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Card
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -34,6 +33,8 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.maparound.R
 import com.example.maparound.domain.model.Place
+import com.example.maparound.ui.screens.home.PlaceMock.loc
+import com.example.maparound.ui.screens.home.PlaceMock.places
 import com.example.maparound.ui.screens.home.components.HomeListItem
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -45,6 +46,7 @@ import kotlinx.coroutines.launch
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MapScreen(
     viewModel: MapScreenViewModel = hiltViewModel()
@@ -54,6 +56,9 @@ fun MapScreen(
     val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
     viewModel.getDeviceLocationAsinc(fusedLocationProviderClient)
     val isMyLocationEnabled = viewModel.getLastKnownLocation() != null
+
+    //BottomSheet
+    val scaffoldState = rememberBottomSheetScaffoldState()
 
     //Request turn on location
     val settingResultRequest = rememberLauncherForActivityResult(
@@ -101,85 +106,96 @@ fun MapScreen(
     if (!isMyLocationEnabled){
         //TODO If not Center to the nearest place
     }
-/*
-    val coroutineScope = rememberCoroutineScope()
-    coroutineScope.launch {
-        CameraPositionState.centerOnLocation()
-    }*/
 
-    //Box(modifier = Modifier.fillMaxSize().padding(bottom = 80.dp, top = 106.dp)){}
+    var clickedPlace by remember {
+        mutableStateOf(viewModel.state.value.clickedPlace)
+    }
 
-
-    GoogleMap(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 55.dp, top = 106.dp),
-        cameraPositionState = cameraPositionState,
-        properties = properties,
-        uiSettings = uiSettings,
-        onMapLoaded = {
-            //Ask for enabling location enabled
-            if (isMyLocationEnabled){
-                checkLocationSetting(
-                    context = context,
-                    onDisabled = { intentSenderRequest ->
-                        settingResultRequest.launch(intentSenderRequest)
-                    },
-                    onEnabled = { /* This will call when setting is already enabled */ }
-                )
-                coroutineScope.launch {
-                    viewModel.state.value.lastKnownLocation?.let { cameraPositionState.centerOnLocation(it) }
+    //BottomSheetScafold
+    BottomSheetScaffold(
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = 128.dp,
+        sheetContent = {
+            if( clickedPlace!=null){
+                Box(modifier = Modifier.padding(bottom = 78.dp)){
+                    HomeListItem(place = clickedPlace!!)
                 }
             }
 
-        },
-    ) {
-        if (viewModel.state.value.currentLocation != null){
-            Circle(
-                center = viewModel.state.value.currentLocation,
-                clickable = false,
-                fillColor = if(isSystemInDarkTheme()) Color(0x1BCAEAFF)
-                            else Color(0x1962BBF5),
-                radius = 400.0,
-                strokeColor = if(isSystemInDarkTheme()) Color(0x7ACAEAFF)
-                else Color(0x8062BBF5),
-                strokeWidth = 8f,
-            )
+        }) { innerPadding ->
+
+        GoogleMap(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 55.dp, top = 106.dp),
+            cameraPositionState = cameraPositionState,
+            properties = properties,
+            uiSettings = uiSettings,
+            onMapClick = {  coroutineScope.launch {scaffoldState.bottomSheetState.partialExpand()}},
+            onMapLoaded = {
+                //Ask for enabling location enabled
+                if (isMyLocationEnabled){
+                    checkLocationSetting(
+                        context = context,
+                        onDisabled = { intentSenderRequest ->
+                            settingResultRequest.launch(intentSenderRequest)
+                        },
+                        onEnabled = { /* This will call when setting is already enabled */ }
+                    )
+                    coroutineScope.launch {
+                        viewModel.state.value.lastKnownLocation?.let { cameraPositionState.centerOnLocation(it) }
+                    }
+                }
+
+            },
+        ) {
+            if (viewModel.state.value.currentLocation != null){
+                Circle(
+                    center = viewModel.state.value.currentLocation,
+                    clickable = false,
+                    fillColor = if(isSystemInDarkTheme()) Color(0x1BCAEAFF)
+                    else Color(0x1962BBF5),
+                    radius = 400.0,
+                    strokeColor = if(isSystemInDarkTheme()) Color(0x7ACAEAFF)
+                    else Color(0x8062BBF5),
+                    strokeWidth = 8f,
+                )
+            }
+
+            var index = 0
+            for (place in places ) {
+                loc[index].latitude
+                val locat = LatLng(
+                    viewModel.state.value.currentLocation.latitude +loc[index].latitude
+                    ,
+                    viewModel.state.value.currentLocation.longitude +loc[index].longitude
+                )
+                Marker(
+                    state = MarkerState(position = locat),
+                    alpha = 0.7f,
+                    title = place.title,
+                    snippet = place.distance+"-"+place.tag,
+                    icon = getBitmapDescriptor(context,place.marker,R.color.marker),
+                    onClick = { maker ->
+                        coroutineScope.launch {
+                            clickedPlace = place
+                            CameraUpdateFactory.newLatLngZoom(locat, 16f)
+                            scaffoldState.bottomSheetState.expand()
+                        }
+                        maker.setIcon(getBitmapDescriptor(context,place.marker,R.color.marker_selected))
+                        maker.alpha=1.0f
+                        false
+                    },
+                    onInfoWindowClose = {maker ->
+                        maker.setIcon(getBitmapDescriptor(context,place.marker,R.color.marker))
+                        maker.alpha=0.7f
+                    }
+                )
+                index++
+            }
+
         }
-
-        Marker(
-            state = MarkerState(position = viewModel.state.value.currentLocation),
-            alpha = 1.0f,
-            title = "Singapore",
-            snippet = "Marker in Singapore",
-            icon = getBitmapDescriptor(context,R.drawable.map,R.color.purple_200),
-            onClick = {false },
-        )
     }
-
-    val place1 = Place(
-        id = "0",
-        image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m_mapAround.jpg",
-        icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m.png",
-        user_name = "UC3M",
-        title = "Defensa TFG Map Around",
-        tag = "Evento",
-        distance = "1m",
-        price = "Gratis",
-        date_time = "12/04/23, 12:00",
-        publish_time = "23d"
-    )
-    Box(
-        modifier = Modifier.padding(top = 300.dp).clip(
-            RoundedCornerShape(10.dp))
-
-    ){
-        HomeListItem(place = place1)
-    }
-
-
-
-
 
 }
 

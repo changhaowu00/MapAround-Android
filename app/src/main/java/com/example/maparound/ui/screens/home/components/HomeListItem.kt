@@ -174,7 +174,8 @@ fun HomeListItemPreview(){
         distance = "1m",
         price = "Gratis",
         date_time = "12/04/23, 12:00",
-        publish_time = "23d"
+        publish_time = "23d",
+        marker = R.drawable.event
     )
 
     HomeListItem(place1)

@@ -18,15 +18,14 @@ class MapScreenViewModel@Inject constructor() : ViewModel(){
 
     val state: MutableState<MapScreenState> = mutableStateOf(
         MapScreenState(
-            lastKnownLocation = null
+            lastKnownLocation = null,
+            clickedPlace = null
         )
     )
 
     fun getLastKnownLocation(): Location?{
         return state.value.lastKnownLocation
     }
-
-
 
     fun getDeviceLocationAsinc(
         fusedLocationProviderClient: FusedLocationProviderClient
