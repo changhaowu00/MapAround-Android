@@ -43,6 +43,8 @@ fun DetailScreen(
             //Carrousel
             item { ImageCarousel(place) }
 
+            item{Box(modifier = Modifier.fillMaxWidth().height(200.dp).background(Color.Black))}
+
 
         }
     }

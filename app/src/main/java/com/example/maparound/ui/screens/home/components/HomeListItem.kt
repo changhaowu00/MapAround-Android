@@ -41,6 +41,7 @@ fun HomeListItem(place : Place){
                     //.padding(1.dp)
             ){
                 AsyncImage(
+
                     contentScale = ContentScale.Crop,
                     model = place.image_url,
                     contentDescription = null
