@@ -8,7 +8,7 @@ object PlaceMock {
     var places = listOf<Place>(
         Place(
             id = "0",
-            image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m_mapAround.jpg",
+            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m_mapAround.jpg"),
             icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m.png",
             user_name = "UC3M",
             title = "Defensa TFG Map Around",
@@ -21,7 +21,7 @@ object PlaceMock {
         ),
         Place(
             id = "1",
-            image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/hakanton.webp",
+            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/hakanton.webp"),
             icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m.png",
             user_name = "UC3M",
             title = "Hackathon UC3M",
@@ -34,7 +34,7 @@ object PlaceMock {
         ),
         Place(
             id = "2",
-            image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/dia-photo.jpg",
+            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/dia-photo.jpg"),
             icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/dia.jpg",
             user_name = "Día",
             title = "Día",
@@ -46,7 +46,7 @@ object PlaceMock {
         ),
         Place(
             id = "3",
-            image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/pista-baloncesto.jpg",
+            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/pista-baloncesto.jpg"),
             icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/baloncesto-icon.webp",
             user_name = "El triple tiro",
             title = "Quedada de Baloncesto parque Leganés",
@@ -59,7 +59,7 @@ object PlaceMock {
         ),
         Place(
             id = "4",
-            image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/torneo-ajedrez.jpg",
+            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/torneo-ajedrez.jpg"),
             icon_url = "https://raw.githubusercontent.com/changhaowu00/ArModels/main/ImagesTFG/ajedrez-icon.webp",
             user_name = "Paloma",
             title = "Torneo Ajedrez ",
@@ -72,7 +72,7 @@ object PlaceMock {
         ),
         Place(
             id = "5",
-            image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/bar-salamanca.jpg",
+            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/bar-salamanca.jpg"),
             icon_url = "https://media.timeout.com/images/101415021/image.jpg",
             user_name = "Bar Salamanca de Leganes",
             title = "Bar Salamanca de Leganes",
@@ -84,7 +84,7 @@ object PlaceMock {
         ),
         Place(
             id = "6",
-            image_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/bus.jpg",
+            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/bus.jpg"),
             icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/bus-ico.jpg",
             user_name = "Julio",
             title = "Cuidado que la Línea de bus 460 no está disponible , no han avisado y me acabo de enterar :) ",
@@ -103,6 +103,5 @@ object PlaceMock {
         LatLng(0.0023877,-0.0012877),
         LatLng(-0.0003377,0.0032177),
         LatLng(-0.0042377,-0.0212177),
-
     )
 }
