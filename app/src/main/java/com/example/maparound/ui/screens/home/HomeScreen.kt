@@ -14,8 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.maparound.ui.navigation.NavGraph
-import com.example.maparound.ui.navigation.Screen
 import com.example.maparound.ui.screens.ar.ArScreen
 import com.example.maparound.ui.screens.home.PlaceMock.places
 import com.example.maparound.ui.screens.home.components.BottomBar
@@ -51,7 +49,7 @@ fun HomeScreen(
             ArScreen()
         }
         else {
-            ScrollView()
+            ScrollView(navController)
         }
 
 
@@ -66,14 +64,14 @@ fun HomeScreenPreview(){
 
 
 @Composable
-fun ScrollView(){
+fun ScrollView(navController : NavHostController){
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = 80.dp, top = 106.dp)
     ) {
         items(places){place ->
-            HomeListItem(place = place)
+            HomeListItem(place = place, navController)
         }
     }
 }

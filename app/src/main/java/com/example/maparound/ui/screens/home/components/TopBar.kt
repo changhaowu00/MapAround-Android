@@ -1,8 +1,13 @@
 package com.example.maparound.ui.screens.home.components
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -12,7 +17,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.maparound.R
-import com.example.maparound.ui.navigation.Screen
 import com.example.maparound.ui.screens.home.HomeScreenViewModel
 
 @Composable
@@ -54,7 +58,7 @@ fun TopBar(
             items.forEachIndexed { index, item ->
                 NavigationBarItem(
                     icon = { Icon(
-                        painter = painterResource(icons.get(index)),
+                        painter = painterResource(icons[index]),
                         contentDescription = item) },
                     selected = viewModel.selectedItemBottomBar.value == index,
                     onClick = {

@@ -2,29 +2,30 @@ package com.example.maparound.ui.screens.detail.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.maparound.domain.model.Place
 import com.example.maparound.ui.screens.home.PlaceMock
-import com.example.maparound.ui.screens.home.PlaceMock.places
 import com.google.accompanist.pager.*
-
 import kotlin.math.absoluteValue
 
 
 @Composable
-fun ImageCarousel(place: Place = PlaceMock.places[0]){
-
+fun ImageCarousel(place: Place = PlaceMock.places[0],navController : NavHostController ){
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,7 +36,7 @@ fun ImageCarousel(place: Place = PlaceMock.places[0]){
 
         //Back Button
         IconButton(
-            onClick = { /*TODO*/ },
+            onClick = { navController.navigateUp() },
             modifier = Modifier
                 .padding(5.dp)
                 .size(40.dp),
@@ -56,14 +57,19 @@ fun ImageCarousel(place: Place = PlaceMock.places[0]){
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun Carousel() {
+private fun Carousel(
+    place : Place = PlaceMock.places[0]
+) {
     val pagerState = rememberPagerState()
     HorizontalPager(
-        count = 4,
+        count = place.image_url.size,
         state = pagerState,
     ) { page ->
         Card(
-            Modifier
+            shape = RoundedCornerShape(0.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            modifier = Modifier
+                .padding(0.dp)
                 .graphicsLayer {
                     // Calculate the absolute offset for the current page from the
                     // scroll position. We use the absolute value which allows us to mirror
@@ -99,7 +105,7 @@ private fun Carousel() {
                 AsyncImage(
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.FillHeight,
-                    model = places[page].image_url,
+                    model = place.image_url[page],
                     contentDescription = null
                 )
             }
@@ -107,13 +113,16 @@ private fun Carousel() {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(top = 210.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 210.dp),
         verticalArrangement = Arrangement.Bottom
     ) {
         HorizontalPagerIndicator(
             pagerState = pagerState,
             modifier = Modifier
-                .padding(16.dp).align(Alignment.CenterHorizontally)
+                .padding(16.dp)
+                .align(Alignment.CenterHorizontally)
         )
     }
 }
@@ -123,5 +132,5 @@ private fun Carousel() {
 @Preview
 @Composable
 fun DetailScreenPreview(){
-    ImageCarousel()
+    ImageCarousel(navController = rememberNavController())
 }

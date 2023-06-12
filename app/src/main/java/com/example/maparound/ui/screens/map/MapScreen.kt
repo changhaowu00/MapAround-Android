@@ -15,14 +15,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,8 +26,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.maparound.R
-import com.example.maparound.domain.model.Place
 import com.example.maparound.ui.screens.home.PlaceMock.loc
 import com.example.maparound.ui.screens.home.PlaceMock.places
 import com.example.maparound.ui.screens.home.components.HomeListItem
@@ -118,7 +113,7 @@ fun MapScreen(
         sheetContent = {
             if( clickedPlace!=null){
                 Box(modifier = Modifier.padding(bottom = 78.dp)){
-                    HomeListItem(place = clickedPlace!!)
+                    HomeListItem(place = clickedPlace!!, rememberNavController())
                 }
             }
 

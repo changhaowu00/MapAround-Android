@@ -1,21 +1,30 @@
 package com.example.maparound.ui.screens.detail.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.example.maparound.R
 import com.example.maparound.domain.model.Place
 
@@ -24,28 +33,15 @@ fun TitleInfo(place : Place){
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(3.dp),
-        shape = RoundedCornerShape(1.dp)
+            .padding(0.dp),
+        shape = RoundedCornerShape(0.dp)
     ){
-
+        
         Row(
             Modifier
                 .fillMaxWidth()
                 .padding(3.dp)){
-            Box(
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(RoundedCornerShape(2.dp))
-                    .background(MaterialTheme.colorScheme.tertiary)
-                //.padding(1.dp)
-            ){
-                AsyncImage(
 
-                    contentScale = ContentScale.Crop,
-                    model = place.image_url,
-                    contentDescription = null
-                )
-            }
             Column(Modifier.fillMaxWidth()) {
                 Row(
                     Modifier
@@ -53,7 +49,7 @@ fun TitleInfo(place : Place){
                         .padding(7.dp)
                 ){
                     Icon(
-                        painter = painterResource(R.drawable.tag),
+                        painter = painterResource(place.marker),
                         contentDescription = null,Modifier.size(20.dp),
                         tint = MaterialTheme.colorScheme.primary)
 
@@ -77,7 +73,7 @@ fun TitleInfo(place : Place){
                     modifier = Modifier.padding(horizontal = 10.dp),
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
+                    fontSize = 24.sp,
                 )
                 if (place.date_time!=null){
                     Text(
@@ -96,69 +92,30 @@ fun TitleInfo(place : Place){
             }
         }
 
-        Row(modifier = Modifier.height(30.dp).padding(vertical = 0.dp)) {
-            Row(
-                modifier = Modifier
-                    //.width(130.dp)
-                    .align( Alignment.CenterVertically)
-                    .padding(start = 5.dp)
-            ){
-                Box(
-                    modifier = Modifier
-                        .size(21.dp)
-                        .clip(RoundedCornerShape(100.dp))
-                        .background(Color.Gray)
-                        .align( Alignment.CenterVertically)
-                ){
-                    AsyncImage(
-                        contentScale = ContentScale.Crop,
-                        model = place.icon_url,
-                        contentDescription = null
-                    )
-                }
-
-                Text(
-                    text = if(place.user_name.length>15) "${place.user_name.subSequence(0,12)}..."
-                    else place.user_name,
-                    modifier = Modifier
-                        .width(110.dp)
-                        .align(Alignment.CenterVertically)
-                        .padding(start = 5.dp),
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold
+        var selectedItem by remember { mutableStateOf(0) }
+        val items = listOf("Guardar", "Enviar Mensaje", "Ver Mapa")
+        val icons = listOf(
+            R.drawable.bookmark,
+            R.drawable.send_msg,
+            R.drawable.map
+        )
+        NavigationBar(
+            containerColor= Color.Transparent,
+        ) {
+            items.forEachIndexed { index, item ->
+                NavigationBarItem(
+                    icon = { Icon(
+                        painter = painterResource(icons.get(index)),
+                        modifier = Modifier.size(20.dp),
+                        contentDescription = item) },
+                    label = { Text(item) },
+                    selected = selectedItem == null,
+                    onClick = { }
                 )
-            }
-
-
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    painter = painterResource(R.drawable.bookmark),
-                    contentDescription = null,Modifier.size(20.dp),
-                    tint = MaterialTheme.colorScheme.secondary)
-            }
-
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    painter = painterResource(R.drawable.send_msg),
-                    contentDescription = null,Modifier.size(20.dp),
-                    tint = MaterialTheme.colorScheme.secondary)
-            }
-
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    painter = painterResource(R.drawable.map),
-                    contentDescription = null,Modifier.size(20.dp),
-                    tint = MaterialTheme.colorScheme.secondary)
             }
         }
     }
 
-    """
-    AsyncImage(
-        model = place.image,
-        contentDescription = null
-    )
-    """
 }
 
 @Preview
