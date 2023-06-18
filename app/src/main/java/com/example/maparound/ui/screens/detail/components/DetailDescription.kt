@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -106,7 +108,7 @@ fun DetailDescription(
             ExpandableText(
                 text = place.description,
                 minimizedMaxLines = 10,
-                modifier = Modifier.padding(horizontal = 8.dp)
+                modifier = Modifier.padding(horizontal = 0.dp)
             )
 
         }
@@ -157,33 +159,72 @@ fun ExpandableText(
     }
 
     Box(modifier) {
-        Text(
-            text = cutText ?: text,
-            maxLines = if (expanded) Int.MAX_VALUE else minimizedMaxLines,
-            overflow = TextOverflow.Ellipsis,
-            onTextLayout = { textLayoutResultState.value = it },
-        )
-        if (!expanded) {
-            val density = LocalDensity.current
+        Column() {
             Text(
-                "... See more",
-                onTextLayout = { seeMoreSizeState.value = it.size },
+                modifier = Modifier.padding(horizontal = 8.dp),
+                text = cutText ?: text,
+                maxLines = if (expanded) Int.MAX_VALUE else minimizedMaxLines,
+                overflow = TextOverflow.Ellipsis,
+                onTextLayout = { textLayoutResultState.value = it },
+            )
+            if (!expanded) {
+                val density = LocalDensity.current
+                Text(
+                    "... See more",
+                    onTextLayout = { seeMoreSizeState.value = it.size },
+                    modifier = Modifier
+                        .then(
+                            if (seeMoreOffset != null)
+                                Modifier.offset(
+                                    x = with(density) { seeMoreOffset.x.toDp() },
+                                    y = with(density) { seeMoreOffset.y.toDp() },
+                                )
+                            else
+                                Modifier
+                        )
+                        .clickable {
+                            expanded = true
+                            cutText = null
+                        }
+                        .alpha(if (seeMoreOffset != null) 1f else 0f)
+                )
+
+            }
+
+            Card(
                 modifier = Modifier
-                    .then(
-                        if (seeMoreOffset != null)
-                            Modifier.offset(
-                                x = with(density) { seeMoreOffset.x.toDp() },
-                                y = with(density) { seeMoreOffset.y.toDp() },
-                            )
-                        else
-                            Modifier
-                    )
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
                     .clickable {
-                        expanded = true
+                        expanded = !expanded
                         cutText = null
+                    },
+                //border = BorderStroke(2.dp,Color.Red),
+                //colors = CardDefaults.cardColors(containerColor = Yellow),
+                shape = RoundedCornerShape(0.dp),
+                content = {
+                    Column(Modifier.fillMaxWidth()){
+                        Divider()
+                        if(!expanded){
+                            Text(text = "LEER DESCRIPCIÓN COMPLETA",
+                            Modifier.padding(vertical = 8.dp).align(CenterHorizontally),
+                                color = MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.Bold
+                        )}else{
+                            Text(text = "OCULTAR",
+                                Modifier.padding(vertical = 8.dp).align(CenterHorizontally),
+                                color = MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.Bold
+                            )
+
+                        }
+
+
                     }
-                    .alpha(if (seeMoreOffset != null) 1f else 0f)
+                }
             )
         }
+
+
     }
 }

@@ -1,6 +1,5 @@
 package com.example.maparound.ui.screens.detail
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,7 +32,6 @@ fun DetailScreen(
 }
 
 @Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, name = "DarkTheme")
 @Composable
 fun DetailScreenPreview(){
     DetailScreen(rememberNavController(), PlaceMock.places[0])
