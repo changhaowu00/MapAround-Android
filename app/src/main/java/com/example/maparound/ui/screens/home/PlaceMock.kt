@@ -8,7 +8,11 @@ object PlaceMock {
     var places = listOf<Place>(
         Place(
             id = "0",
-            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m_mapAround.jpg"),
+            image_url = listOf<String>("https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m_mapAround.jpg",
+                "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/hakanton.webp",
+                "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m_mapAround.jpg",
+                "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/hakanton.webp",
+            ),
             icon_url = "https://github.com/changhaowu00/ArModels/raw/main/ImagesTFG/uc3m.png",
             user_name = "UC3M",
             title = "Defensa TFG Map Around",
