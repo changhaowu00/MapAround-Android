@@ -51,7 +51,7 @@ fun DetailDescription(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(0.dp),
+            .padding(top = 7.dp),
         shape = RoundedCornerShape(0.dp)
     ){
         Column(

@@ -9,7 +9,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.maparound.domain.model.Place
+import com.example.maparound.ui.screens.detail.components.DetailDescription
 import com.example.maparound.ui.screens.detail.components.ImageCarousel
+import com.example.maparound.ui.screens.detail.components.Products
 import com.example.maparound.ui.screens.detail.components.TitleInfo
 import com.example.maparound.ui.screens.home.PlaceMock
 
@@ -25,7 +27,8 @@ fun DetailScreen(
             //Carrousel
             item { ImageCarousel(place, navController) }
             item { TitleInfo(place)}
-
+            item { DetailDescription(place = place) }
+            item { Products(place = place) }
         }
     }
 
