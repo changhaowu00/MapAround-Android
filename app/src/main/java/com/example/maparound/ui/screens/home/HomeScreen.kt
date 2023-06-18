@@ -43,7 +43,7 @@ fun HomeScreen(
 
         //ScrollView()
         if (viewModel.selectedItemBottomBar.value == 1){
-            MapScreen()
+            MapScreen(navController)
         }
         else if (viewModel.selectedItemBottomBar.value == 2){
             ArScreen()

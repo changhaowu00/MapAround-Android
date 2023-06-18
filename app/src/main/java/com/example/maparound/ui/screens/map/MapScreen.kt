@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.maparound.R
 import com.example.maparound.ui.screens.home.PlaceMock.loc
@@ -44,7 +45,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MapScreen(
-    viewModel: MapScreenViewModel = hiltViewModel()
+    navController : NavHostController,
+    viewModel: MapScreenViewModel = hiltViewModel(),
 ){
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -113,7 +115,7 @@ fun MapScreen(
         sheetContent = {
             if( clickedPlace!=null){
                 Box(modifier = Modifier.padding(bottom = 78.dp)){
-                    HomeListItem(place = clickedPlace!!, rememberNavController())
+                    HomeListItem(place = clickedPlace!!, navController = navController)
                 }
             }
 
@@ -253,7 +255,7 @@ fun checkLocationSetting(
 @Preview
 @Composable
 fun MapScreenPreview(){
-    MapScreen()
+    MapScreen(navController = rememberNavController())
 }
 object BitmapHelper {
     /**

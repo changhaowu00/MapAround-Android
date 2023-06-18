@@ -31,7 +31,7 @@ fun NavGraph(
             RegisterScreen(navHostController)
         }
         composable(route = Screen.MapScreen.route){
-            MapScreen()
+            MapScreen(navHostController)
         }
         composable(route = Screen.ArScreen.route){
             ArScreen()
