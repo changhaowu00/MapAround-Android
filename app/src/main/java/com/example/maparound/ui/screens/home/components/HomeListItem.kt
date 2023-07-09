@@ -69,13 +69,10 @@ fun HomeListItem(place : Place,navController : NavHostController){
                         .padding(7.dp)
                 ){
                     Icon(
-                        painter = painterResource(R.drawable.tag),
+                        painter = painterResource(place.marker),
                         contentDescription = null,Modifier.size(20.dp),
                         tint = MaterialTheme.colorScheme.primary)
 
-                    Text(
-                        text = place.tag,
-                        color = MaterialTheme.colorScheme.primary)
 
 
                     Spacer(Modifier.weight(1f))

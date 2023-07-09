@@ -3,19 +3,17 @@ package com.example.maparound.ui.screens.ar
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.sceneview.ar.ARScene
-import io.github.sceneview.ar.node.ArNode
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.ui.platform.LocalContext
 import io.github.sceneview.ar.ArSceneView
 import io.github.sceneview.ar.node.ArModelNode
+import io.github.sceneview.ar.node.ArNode
 import io.github.sceneview.ar.node.PlacementMode
 import io.github.sceneview.math.Position
-import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun ArScreen(){
@@ -73,7 +71,7 @@ fun ArScreen(){
     ).apply {
         loadModelGlbAsync(
             context = context,
-            glbFileLocation = "https://github.com/changhaowu00/ArModels/raw/main/glass.glb",
+            glbFileLocation = "https://github.com/changhaowu00/ArModels/raw/20d0dee32e5436d28954732a4621f53fe845eae7/c3m.glb",
             autoAnimate = true,
             scaleToUnits = 1f,
             // Place the model origin at the bottom center
@@ -82,7 +80,7 @@ fun ArScreen(){
     }
 
     val model2 = ArModelNode(
-        placementMode = PlacementMode.BEST_AVAILABLE,
+        placementMode = PlacementMode.DEPTH,
         instantAnchor = false,
         hitPosition = Position(0.0f, 0.0f, -2.0f),
         followHitPosition = true,
